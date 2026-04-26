@@ -28,8 +28,8 @@ O projeto está totalmente "dockerizado", facilitando o setup em qualquer ambien
 1. **Clonar o repositório:**
 
    ```bash
-   git clone [https://github.com/Guilherme-Abraao/desafio-backend-node.js.git]
-   cd nome-do-repositorio
+   git clone https://github.com/Guilherme-Abraao/desafio-backend-node.js.git
+   cd desafio-backend-node.js
 
    ```
 
