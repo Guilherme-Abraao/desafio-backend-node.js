@@ -1,0 +1,81 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Likes API",
+    "version": "1.0.0",
+    "description": "API pragmática para processamento de likes com Fila e Cache."
+  },
+  "paths": {
+    "/posts": {
+      "get": {
+        "summary": "Listar todos os posts",
+        "responses": { "200": { "description": "Sucesso" } }
+      },
+      "post": {
+        "summary": "Criar um novo post",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "title": { "type": "string", "example": "Meu primeiro post" },
+                  "content": { "type": "string", "example": "Conteúdo do meu primeiro post." }
+                }
+              }
+            }
+          }
+        },
+        "responses": { "201": { "description": "Criado" } }
+      }
+    },
+    "/posts/{postId}": {
+      "get": {
+        "summary": "Consultar post específico",
+        "description": "Retorna os dados do post e a lista de usuários que deram like.",
+        "parameters": [
+          {
+            "name": "postId",
+            "in": "path",
+            "required": true,
+            "description": "ID do post (UUID)",
+            "schema": { "type": "string", "format": "uuid" }
+          }
+        ],
+        "responses": {
+          "200": { "description": "Dados do post retornados com sucesso" },
+          "404": { "description": "Post não encontrado" }
+        }
+      }
+    },
+    "/posts/{postId}/like": {
+      "post": {
+        "summary": "Registrar um like (Assíncrono)",
+        "parameters": [
+          { "name": "postId", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "userId": { "type": "string", "format": "uuid", "example": "550e8400-e29b-41d4-a716-446655440000" }
+                }
+              }
+            }
+          }
+        },
+        "responses": { "202": { "description": "Em processamento" } }
+      }
+    },
+    "/posts/ranking": {
+      "get": {
+        "summary": "Top 3 posts mais curtidos (Cache no Redis)",
+        "responses": { "200": { "description": "Sucesso" } }
+      }
+    }
+  }
+}
