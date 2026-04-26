@@ -33,19 +33,26 @@ O projeto está totalmente "dockerizado", facilitando o setup em qualquer ambien
 
    ```
 
-2. **Subir os containers:**
+2. **Instalar as dependências e configurar o ambiente:**
+
+   ```bash
+   npm install
+   cp .env.example .env
+   ```
+
+3. **Subir os containers:**
 
    ```bash
    docker-compose up -d
    ```
 
-3. **Executar as Migrations do Banco:**
+4. **Executar as Migrations do Banco:**
 
    ```bash
    npx prisma migrate dev
    ```
 
-4. **Acessar a API:**
+5. **Acessar a API:**
    A aplicação estará disponível em `http://localhost:3333`.
 
 ## 📖 Documentação (Swagger)
